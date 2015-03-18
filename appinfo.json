@@ -1,0 +1,35 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "james.j.downs@gmail.com",
+    "longName": "Charge",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "fonts/OpenSans-Regular.ttf",
+                "name": "OPEN_SANS_18",
+                "type": "font"
+            },
+            {
+                "file": "fonts/OpenSans-Regular.ttf",
+                "name": "OPEN_SANS_26",
+                "type": "font"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Charge",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "39669db8-ebf8-4b64-afed-63d7b344b848",
+    "versionCode": 1,
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
