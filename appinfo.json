@@ -9,6 +9,12 @@
     "resources": {
         "media": [
             {
+                "file": "images/logobw.png",
+                "menuIcon": true,
+                "name": "LOGO",
+                "type": "png"
+            },
+            {
                 "file": "fonts/OpenSans-Regular.ttf",
                 "name": "OPEN_SANS_18",
                 "type": "font"
