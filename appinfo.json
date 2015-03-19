@@ -3,26 +3,26 @@
     "capabilities": [
         ""
     ],
-    "companyName": "james.j.downs@gmail.com",
+    "companyName": "James Downs",
     "longName": "Charge",
     "projectType": "native",
     "resources": {
         "media": [
             {
-                "file": "images/logobw.png",
-                "menuIcon": true,
-                "name": "LOGO",
-                "type": "png"
-            },
-            {
-                "file": "fonts/OpenSans-Regular.ttf",
+                "file": "fonts/OpenSans-ExtraBold.ttf",
                 "name": "OPEN_SANS_18",
                 "type": "font"
             },
             {
-                "file": "fonts/OpenSans-Regular.ttf",
+                "file": "fonts/OpenSans-ExtraBold.ttf",
                 "name": "OPEN_SANS_26",
                 "type": "font"
+            },
+            {
+                "file": "images/logobw.png",
+                "menuIcon": true,
+                "name": "LOGO",
+                "type": "png"
             }
         ]
     },

@@ -22,7 +22,6 @@ char *upcase(char *str)
             str[i] -= 0x20;
         }
     }
-
     return str;
 }
 
@@ -58,17 +57,30 @@ static void update_time() {
 }
 
 static void update_battery(Layer *layer, GContext *ctx) {
-  int bat = battery_state_service_peek().charge_percent; // Get battery percentage
+  int bat = battery_state_service_peek().charge_percent;
+  
+  // Make it so 0% charge isn't invisible
+  if (bat == 0) {
+    bat = 5;
+  }
   
  // Set battery color based on screen types
   #ifdef PBL_COLOR
-    graphics_context_set_fill_color(ctx, GColorGreen);
+    if (bat >= 60) {
+      graphics_context_set_fill_color(ctx, GColorGreen);
+    }
+    else if (bat < 60 && bat > 30) {
+      graphics_context_set_fill_color(ctx, GColorYellow);
+    }
+    else {
+    graphics_context_set_fill_color(ctx, GColorRed);
+    }
   #else
     graphics_context_set_fill_color(ctx, GColorBlack);
     graphics_fill_circle(ctx, GPoint(104, 128), (bat + (bat / 20))); // Outline for b&w screens
     graphics_context_set_fill_color(ctx, GColorWhite); 
   #endif
-  graphics_fill_circle(ctx, GPoint(104, 128), battery_state_service_peek().charge_percent); // Fill circle
+  graphics_fill_circle(ctx, GPoint(104, 128), bat); // Fill circle
 }
 
 // Update time when called
@@ -97,9 +109,9 @@ static void main_window_load(Window *window) {
   layer_set_update_proc(s_battery_layer, update_battery);
   
   // Create the labels
-  s_hour_label = text_layer_create(GRect(72,72,40,30));
-  s_minute_label = text_layer_create(GRect(72,97,40,30));
-  s_date_label = text_layer_create(GRect(55,122,70,30));
+  s_hour_label = text_layer_create(GRect(85,91,40,30));
+  s_minute_label = text_layer_create(GRect(85,116,40,30));
+  s_date_label = text_layer_create(GRect(67,141,70,30));
   
   // Set background and text colors
   text_layer_set_background_color(s_hour_label, GColorClear);
