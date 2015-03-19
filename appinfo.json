@@ -10,12 +10,12 @@
         "media": [
             {
                 "file": "fonts/OpenSans-ExtraBold.ttf",
-                "name": "OPEN_SANS_18",
+                "name": "OPEN_SANS_36",
                 "type": "font"
             },
             {
                 "file": "fonts/OpenSans-ExtraBold.ttf",
-                "name": "OPEN_SANS_26",
+                "name": "OPEN_SANS_20",
                 "type": "font"
             },
             {

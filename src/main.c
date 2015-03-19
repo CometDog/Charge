@@ -57,19 +57,33 @@ static void update_time() {
 }
 
 static void update_battery(Layer *layer, GContext *ctx) {
-  int bat = battery_state_service_peek().charge_percent;
+  int bat = 1 * battery_state_service_peek().charge_percent;
+  #ifdef PBL_COLOR 
+  #else
+    int batline = (bat + bat / 20);
+  #endif
   
   // Make it so 0% charge isn't invisible
   if (bat == 0) {
     bat = 5;
+    #ifdef PBL_COLOR 
+    #else 
+      batline = 6;
+    #endif
+  }
+  if (bat == 10) {
+    #ifdef PBL_COLOR 
+    #else 
+      batline = 11;
+    #endif
   }
   
  // Set battery color based on screen types
   #ifdef PBL_COLOR
-    if (bat >= 60) {
+    if (bat >= 70) {
       graphics_context_set_fill_color(ctx, GColorGreen);
     }
-    else if (bat < 60 && bat > 30) {
+    else if (bat < 70 && bat > 30) {
       graphics_context_set_fill_color(ctx, GColorYellow);
     }
     else {
@@ -77,10 +91,10 @@ static void update_battery(Layer *layer, GContext *ctx) {
     }
   #else
     graphics_context_set_fill_color(ctx, GColorBlack);
-    graphics_fill_circle(ctx, GPoint(104, 128), (bat + (bat / 20))); // Outline for b&w screens
+    graphics_fill_circle(ctx, GPoint(112, 121), batline); // Outline for b&w screens
     graphics_context_set_fill_color(ctx, GColorWhite); 
   #endif
-  graphics_fill_circle(ctx, GPoint(104, 128), bat); // Fill circle
+  graphics_fill_circle(ctx, GPoint(112, 121), bat); // Fill circle
 }
 
 // Update time when called
@@ -96,8 +110,8 @@ static void main_window_load(Window *window) {
   GRect bounds = layer_get_bounds(window_layer);
   
   // Create the fonts
-  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_OPEN_SANS_26));
-  s_date_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_OPEN_SANS_18));
+  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_OPEN_SANS_36));
+  s_date_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_OPEN_SANS_20));
   
   // Create background the layers
   s_solid_layer = layer_create(bounds);
@@ -109,9 +123,9 @@ static void main_window_load(Window *window) {
   layer_set_update_proc(s_battery_layer, update_battery);
   
   // Create the labels
-  s_hour_label = text_layer_create(GRect(85,91,40,30));
-  s_minute_label = text_layer_create(GRect(85,116,40,30));
-  s_date_label = text_layer_create(GRect(67,141,70,30));
+  s_hour_label = text_layer_create(GRect(75,76,60,40));
+  s_minute_label = text_layer_create(GRect(75,106,60,40));
+  s_date_label = text_layer_create(GRect(24,140,110,40));
   
   // Set background and text colors
   text_layer_set_background_color(s_hour_label, GColorClear);
@@ -132,9 +146,9 @@ static void main_window_load(Window *window) {
   text_layer_set_text(s_date_label, "ERROR");
   
   // Align text
-  text_layer_set_text_alignment(s_hour_label, GTextAlignmentCenter);
-  text_layer_set_text_alignment(s_minute_label, GTextAlignmentCenter);
-  text_layer_set_text_alignment(s_date_label, GTextAlignmentCenter);
+  text_layer_set_text_alignment(s_hour_label, GTextAlignmentRight);
+  text_layer_set_text_alignment(s_minute_label, GTextAlignmentRight);
+  text_layer_set_text_alignment(s_date_label, GTextAlignmentRight);
   
   // Apply layers to screen
   layer_add_child(window_layer, s_solid_layer); 
